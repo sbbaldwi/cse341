@@ -6,6 +6,8 @@ const briRoute = (req, res) => {
     res.send('Bri Christiansen');
 };
 
+
+
 module.exports = {
     jacobRoute,
     briRoute

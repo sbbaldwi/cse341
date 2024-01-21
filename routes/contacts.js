@@ -1,16 +1,32 @@
+/*my first approach
+
 const express = require('express');
 const router = express.Router();
-const Contact = require('../routes/contacts');
+const { MongoClient } = require('mongodb');
 
-// Route to get all contacts
-router.get('/', async (req, res) => {
+router.get('/contacts', async (req, res) => {
+    const client = new MongoClient(process.env.CONNECTION_STRING);
     try {
-        const contacts = await Contact.find();
+        await client.connect();
+        const collection = client.db().collection('contacts');
+        const contacts = await collection.find({}).toArray();
         res.json(contacts);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Internal Server Error' });
+    } catch (e) {
+        console.error(e);
+        res.status(500).json({ error: 'Internal Server Error' });
+    } finally {
+        client.close();
     }
 });
+
+module.exports = router;*/
+
+const express = require('express');
+const router = express.Router();
+
+const contactsController = require('../controllers/contacts');
+
+router.get('/', contactsController.getAll);
+router.get('/:id', contactsController.getSingle);
 
 module.exports = router;
