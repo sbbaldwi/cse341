@@ -27,7 +27,77 @@ const getSingle = async (req, res) => {
     }
 };
 
+
+const createContact = async (req, res) => {
+    console.log(req.body);
+    try {
+        const { firstName, lastName, email, favoriteColor, birthday } = req.body;
+
+        if (!firstName || !lastName || !email || !favoriteColor || !birthday) {
+            return res.status(400).json({ message: 'All fields are required' });
+        }
+
+        const contact = { firstName, lastName, email, favoriteColor, birthday };
+        const db = getDb();
+        const collection = db.collection('contacts');
+        const result = await collection.insertOne(contact);
+
+        res.status(201).json({ id: result.insertedId });
+    } catch (err) {
+        res.status(500).json({ message: 'Error creating contact', error: err.message });
+    }
+};
+
+const updateContact = async (req, res) => {
+    try {
+        const contactId = req.params.id;
+        const updateData = req.body;
+
+        if (Object.keys(updateData).length === 0) {
+            return res.status(400).json({ message: 'No update data provided' });
+        }
+
+        const db = getDb();
+        const collection = db.collection('contacts');
+
+        const result = await collection.updateOne(
+            { _id: new ObjectId(contactId) },
+            { $set: updateData }
+        );
+
+        if (result.matchedCount === 0) {
+            return res.status(404).json({ message: 'Contact not found' });
+        }
+
+        res.status(200).json({ message: 'Contact updated successfully' });
+    } catch (err) {
+        res.status(500).json({ message: 'Error updating contact', error: err.message });
+    }
+};
+
+const deleteContact = async (req, res) => {
+    try {
+        const contactId = req.params.id;
+        const db = getDb();
+        const collection = db.collection('contacts');
+
+        const result = await collection.deleteOne({ _id: new ObjectId(contactId) });
+
+        if (result.deletedCount === 0) {
+            return res.status(404).json({ message: 'Contact not found' });
+        }
+
+        res.status(200).json({ message: 'Contact deleted successfully' });
+    } catch (err) {
+        res.status(500).json({ message: 'Error deleting contact', error: err.message });
+    }
+};
+
+
 module.exports = {
     getAll,
-    getSingle
+    getSingle,
+    createContact,
+    updateContact,
+    deleteContact
 };
