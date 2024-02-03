@@ -34,3 +34,41 @@ Content-Type: application/json
 
 #delete contact
 DELETE http://localhost:8080/contacts/65b59015e41dfcaa8d6a7a8a
+###
+
+# See contacts on Render
+GET https://project-1-uxxh.onrender.com/contacts
+###
+
+# Find contact by id on Render
+GET https://project-1-uxxh.onrender.com/contacts/659f300da77edf921b6f2016
+###
+
+# Create contact on Render
+POST https://project-1-uxxh.onrender.com/contacts
+Content-Type: application/json
+
+{
+  "firstName": "Jane",
+  "lastName": "Doe",
+  "email": "janedoe@gmail.com",
+  "favoriteColor": "blue",
+  "birthday": "02/02/2002"
+}
+###
+
+# Update contact on Render
+PUT https://project-1-uxxh.onrender.com/contacts/65b59015e41dfcaa8d6a7a8a
+Content-Type: application/json
+
+{
+  "firstName": "Jane",
+  "lastName": "Doe",
+  "email": "janedoe@email.com",
+  "favoriteColor": "blue",
+  "birthday": "02/02/2002"
+}
+###
+
+# Delete contact on Render
+DELETE https://project-1-uxxh.onrender.com/contacts/65b59015e41dfcaa8d6a7a8a

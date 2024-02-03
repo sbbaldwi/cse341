@@ -8,6 +8,9 @@ const cors = require('cors');
 
 const port = process.env.PORT || 8080;
 const app = express();
+const corsOptions = {
+    origin: 'https://project-1-uxxh.onrender.com',
+};
 
 app
     .use(bodyParser.json())
@@ -17,7 +20,7 @@ app
     })
     .use('/', require('./routes/index'))
     .use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
-    .use(cors());
+    .use(cors(corsOptions));
 
 
 mongodb.initDb((err, mongodb) => {
