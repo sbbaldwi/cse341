@@ -9,18 +9,19 @@ const cors = require('cors');
 const port = process.env.PORT || 8080;
 const app = express();
 const corsOptions = {
-    origin: 'https://project-1-uxxh.onrender.com',
+    origin: 'https://project-1-vstx.onrender.com/',
+    optionsSuccessStatus: 200
 };
 
 app
+    .use(cors(corsOptions))
     .use(bodyParser.json())
     .use((req, res, next) => {
         res.setHeader('Access-Control-Allow-Origin', '*');
         next();
     })
     .use('/', require('./routes/index'))
-    .use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
-    .use(cors(corsOptions));
+    .use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
 mongodb.initDb((err, mongodb) => {
