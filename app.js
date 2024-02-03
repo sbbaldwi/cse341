@@ -8,9 +8,13 @@ const cors = require('cors');
 
 const port = process.env.PORT || 8080;
 const app = express();
+const corsOptions = {
+    origin: 'https://project-1-vstx.onrender.com/',
+    optionsSuccessStatus: 200
+};
 
 app
-    .use(cors())
+    .use(cors(corsOptions))
     .use(bodyParser.json())
     .use((req, res, next) => {
         res.setHeader('Access-Control-Allow-Origin', '*');
