@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "https://project-1-pp3f.onrender.com/",
+      "url": "https://app.swaggerhub.com/apis/BAL20020/Contacts/1.0.0#/",
       "description": "Production server"
     }
   ],
