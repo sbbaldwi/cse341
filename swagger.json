@@ -7,8 +7,8 @@
   },
   "servers": [
     {
-      "url": "https://app.swaggerhub.com/apis/BAL20020/Contacts/1.0.0#/",
-      "description": "Production server"
+      "url": "https://week3-6ma1.onrender.com",
+      "description": "render url"
     }
   ],
   "paths": {
